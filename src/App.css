@@ -1,38 +1,127 @@
-.App {
+:root {
+  --white: #fff;
+  --active-color: #00aeb0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  background: var(--active-color);
+  transition: background 0.4s ease;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="range"] {
+  height: 5px;
+  -webkit-appearance: none;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #3b7677;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.audio-player {
+  position: relative;
+  max-width: 30rem;
+  z-index: 10;
+  transform: translate(-50%,50%);
+  left: 50%;
+  top: 50%;
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
+  color: var(--white);
+}
+
+.img-song {
+  border-radius: 120px;
+  display: block;
+  margin: auto;
+  height: 200px;
+  width: 200px;
+}
+
+.song-info {
   text-align: center;
+  z-index: 1;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.singer {
+  font-weight: 300;
+  margin-top: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.audio-controls {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  width: 75%;
+  margin: 0 auto 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.audio-controls .prev svg,
+.audio-controls .next svg {
+  width: 35px;
+  height: 35px;
 }
 
-@keyframes App-logo-spin {
+.audio-controls .play svg,
+.audio-controls .pause svg {
+  height: 40px;
+  width: 40px;
+}
+
+.audio-controls path {
+  fill: var(--white);
+}
+
+.color-backdrop {
+  background: linear-gradient(45deg, var(--active-color) 20%, transparent 100%)
+    no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.color-backdrop.playing {
+  animation: colorChange 20s alternate infinite;
+}
+
+@keyframes colorChange {
   from {
-    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    filter: hue-rotate(360deg);
   }
+}
+
+.time-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.timer {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
 }
