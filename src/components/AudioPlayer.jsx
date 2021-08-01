@@ -9,7 +9,7 @@ const AudioPlayer = ({ songs }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { title, singer, color, image, audioSrc } = songs[songIndex];
-
+ 
   const audioRef = useRef(new Audio(audioSrc));
   const intervalRef = useRef();
   const isReady = useRef();
@@ -17,7 +17,7 @@ const AudioPlayer = ({ songs }) => {
   const { duration } = audioRef.current;
 
   const currentPercentage = duration ? `${(progress / duration) * 100}%` : "0%";
-  console.log(currentPercentage);
+  console.log(Math.round(parseInt(currentPercentage)));
   const trackStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
   `;
@@ -52,7 +52,7 @@ const AudioPlayer = ({ songs }) => {
     }, 1000);
   };
 
-  const onScroll = (value) => {
+  const onSliders = (value) => {
     // Xóa mọi thời gian đã chạy
     clearInterval(intervalRef.current);
 
@@ -60,7 +60,7 @@ const AudioPlayer = ({ songs }) => {
     setProgess(audioRef.current.currentTime);
   };
 
-  const onScrollEnd = () => {
+  const onSlidersEnd = () => {
     // nếu chưa phát thì chạy nhạc
     if (!isPlaying) {
       setIsPlaying(true);
@@ -129,12 +129,12 @@ const AudioPlayer = ({ songs }) => {
             min="0"
             max={duration ? duration : `${duration}`}
             className="progress"
-            onChange={(e) => onScroll(e.target.value)}
-            onMouseUp={onScrollEnd}
-            onKeyUp={onScrollEnd}
+            onChange={(e) => onSliders(e.target.value)}
+            onMouseUp={onSlidersEnd}
+            onKeyUp={onSlidersEnd}
             style={{ background: trackStyling }}
           />
-          <TimeBar 
+          <TimeBar
             currentTime={audioRef.current.currentTime}
             duration={duration}
           />
